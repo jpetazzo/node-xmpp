@@ -1,5 +1,6 @@
 var xmpp = require('../lib/node-xmpp');
 var SoftwareVersion = require('./c2s_mods/software_version'); 
+var RecipientOffline = require('./c2s_mods/offline');
 
 /*
  *  TODO
@@ -25,10 +26,10 @@ var SoftwareVersion = require('./c2s_mods/software_version');
 var c2s = new xmpp.C2S({
     port: 5222, 
     domain: 'localhost',
-    tls: {
-        keyPath: './examples/localhost-key.pem',
-        certPath: './examples/localhost-cert.pem'
-    }
+    // tls: {
+    //     keyPath: './examples/localhost-key.pem',
+    //     certPath: './examples/localhost-cert.pem'
+    // }
 });
 
 // Allows the developer to authenticate users against anything they want.
@@ -48,6 +49,7 @@ c2s.on("connect", function(client) {
     SoftwareVersion.version = "0.0.0.1";
     SoftwareVersion.os = "Mac OS X 10.7 Lion";
     client.addMixin(SoftwareVersion.mod);
+    client.addMixin(RecipientOffline.mod);
 });
 
 // On Disconnect event. When a client disconnects
