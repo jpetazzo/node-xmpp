@@ -42,6 +42,17 @@ c2s.on("authenticate", function(jid, password, client) {
     }
 });
 
+RecipientOffline.store_offline_message = function(stanza) {
+    console.log("STORING xxxxxx" )
+}
+
+RecipientOffline.messages_for_jid = function(jid, callback) {
+    var msg = new xmpp.Element("message", {to: jid})
+    msg.c("body").t("Welcome back!");
+    callback(msg);
+}
+
+
 // On Connect event. When a client connects.
 c2s.on("connect", function(client) {
     // That's the way you add mods to a given server.
